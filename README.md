@@ -35,6 +35,9 @@ Copper **és estable per HDMI** — és exactament el mateix motiu pel qual el
 - `build.sh` — compila tot i genera `src/build/rasterbar.nex`.
 - `.github/workflows/build.yml` — CI: construeix el `.nex` i, en una tag `v*`,
   el publica com a release de GitHub.
+- [`INFORME.md`](INFORME.md) — informe de desenvolupament: el procés, les
+  decisions de disseny i els problemes que han anat apareixent (amb causa i
+  solució), incloent-hi el bug que causava que la barra no es mogués.
 
 Els fitxers `src/gradient.inc`, `src/copper.inc`, `src/targets.inc` i el binari
 `sjasmplus` **no estan versionats** (estan al `.gitignore`): es regeneren
