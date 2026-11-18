@@ -2,7 +2,7 @@
 
 Un **raster bar** (barra metàl·lica horitzontal) per a ZX Spectrum Next, dibuixat
 amb el coprocessor **Copper**.
-  `src/build/rasterbar.nex` (el script fa `cd src` i compila des d'allà).
+
 ## Per què Copper i no la CPU
 
 A la wiki oficial de SpecNext, la FAQ diu que els efectes de multicolor/border
@@ -30,10 +30,15 @@ Copper **és estable per HDMI** — és exactament el mateix motiu pel qual el
 
 - `src/rasterbar.asm` — codi font (Z80 + instruccions Z80N `NEXTREG`).
 - `src/gen_gradient.py` — genera les taules `gradient.inc`, `copper.inc` i
-  `targets.inc` (NOVA: podeu ajustar l'alçada/colors de la banda aquí).
-- `src/gradient.inc`, `src/copper.inc`, `src/targets.inc` — dades generades.
-- `src/sjasmplus` — assemblador (v1.24.1, precompilat).
+  `targets.inc` (podeu ajustar l'alçada/colors de la banda aquí).
+- `src/build/rasterbar.nex` — el binari final, generat per `build.sh`.
 - `build.sh` — compila tot i genera `src/build/rasterbar.nex`.
+- `.github/workflows/build.yml` — CI: construeix el `.nex` i, en una tag `v*`,
+  el publica com a release de GitHub.
+
+Els fitxers `src/gradient.inc`, `src/copper.inc`, `src/targets.inc` i el binari
+`sjasmplus` **no estan versionats** (estan al `.gitignore`): es regeneren
+automàticament amb `build.sh`.
 
 ## Compilar
 
@@ -41,12 +46,13 @@ Copper **és estable per HDMI** — és exactament el mateix motiu pel qual el
 ./build.sh
 ```
 
-Requereix `python3` i `sjasmplus` (ja inclòs a `src/`). El resultat és
-`src/build/rasterbar.nex`.
+Requereix `python3`, `git`, `make` i `g++`. Si el binari de `sjasmplus` no és
+present (per exemple en un checkout net del repositori), `build.sh` el compila
+automàticament des de la font. El resultat és `src/build/rasterbar.nex`.
 
 ## Executar
 
-Carregueu `build/rasterbar.nex` en un emulador que suporti ZX Spectrum Next
+Carregueu `src/build/rasterbar.nex` en un emulador que suporti ZX Spectrum Next
 (per exemple ZEsarUX amb `--machine TBBlue`) o en maquinari real.
 
 ```sh
@@ -65,3 +71,7 @@ A `src/gen_gradient.py`:
 - `BAND` — alçada de la barra en scanlines.
 - `FLOOR` / `PEAK` — colors (r,g,b 0-7) de la base i del centre (specular) de la
   banda metàl·lica.
+
+## Crèdits
+
+Aquest projecte ha estat creat amb l'ajuda de **OMP (Oh, my Pi)** i **DeepSeek**.
